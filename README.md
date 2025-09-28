@@ -83,7 +83,7 @@ __Note__: If the person running the script is not a __Company Admin__ with the _
 
 The steps in this section are optional. 
 
-__*Note__: The token created for this script is a non-expiring token. Should you choose to keep the token, make sure you store it safely. In case you want to invalidate the token, follow the steps below.
+__*IMPORTANT: The token created for this script is a non-expiring token. Should you choose to keep the token, make sure you store it safely. In case you want to invalidate the token, follow the steps below.__
 
 If you are running this script as a one-off action you can revoke the REST API token if you don't plan to use these functionalities in the future. 
 
