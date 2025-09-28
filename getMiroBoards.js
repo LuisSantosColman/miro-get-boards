@@ -340,10 +340,10 @@ async function runGetBoardsScript() {
         }
 
         console.log(`Getting Boards of Team ${teamId} (Team No. ${teamIndex + 1} of ${teamsLength}) - API URL --> ${apiUrl}`);
-        var initialData = await response.json();
-        var totalItems = initialData.total;
-        var processedItems = initialData.data.length;
-        var idsToAdd = initialData.data.map(item => item.id);
+        let initialData = await response.json();
+        let totalItems = initialData.total;
+        let processedItems = initialData.data.length;
+        let idsToAdd = initialData.data.map(item => item.id);
         teams[teamId].all_boards.push(...idsToAdd);
         results.push(...initialData.data);
 
@@ -371,8 +371,8 @@ async function runGetBoardsScript() {
             console.log(`ProcessedItems --> ${processedItems} out of ${totalItems} in Team ID ${teamId} (Team ${teamIndex} out of ${teamsLength})`);
             console.log(`....Getting further Boards of Team ${teamId} asynchronously in batches of max ${numberOfRequests} per batch`);
 
-            var remainingItems = totalItems - processedItems;
-            var batchSize = Math.min(numberOfRequests, Math.ceil(remainingItems / 50));
+            let remainingItems = totalItems - processedItems;
+            let batchSize = Math.min(numberOfRequests, Math.ceil(remainingItems / 50));
 
             if (Object.keys(getBoardsErrors).length > 0) {
                 if (getBoardsErrors[Object.keys(getBoardsErrors)[Object.keys(getBoardsErrors).length - 1]].error == 429) {
@@ -465,8 +465,8 @@ async function runGetBoardsScript() {
         return { results };
     }
 
-    var delay = ms => new Promise(res => setTimeout(res, ms));
-    var holdScriptExecution = async (ms) => {
+    let delay = ms => new Promise(res => setTimeout(res, ms));
+    let holdScriptExecution = async (ms) => {
         console.log('**** Rate limit hit - Delaying execution for ' + (ms/1000) + ' seconds to replenish rate limit credits - Current time: ' + new Date() + '***');
         await delay(ms);
         console.log('**** Resumming script execution ***');
@@ -475,8 +475,8 @@ async function runGetBoardsScript() {
     async function callAPI(url, options) {
         async function manageErrors(response) {
             if(!response.ok){
-                var parsedResponse = await response.json();
-                var responseError = {
+                let parsedResponse = await response.json();
+                let responseError = {
                     status: response.status,
                     statusText: response.statusText,
                     requestUrl: response.url,
@@ -487,11 +487,11 @@ async function runGetBoardsScript() {
             return response;
         }
 
-        var response = await fetch(url, options)
+        let response = await fetch(url, options)
         .then(manageErrors)
         .then((res) => {
             if (res.ok) {
-                var rateLimitRemaining = res.headers.get('X-RateLimit-Remaining');
+                let rateLimitRemaining = res.headers.get('X-RateLimit-Remaining');
                 return res[res.status == 204 ? 'text' : 'json']().then((data) => ({ status: res.status, rate_limit_remaining: rateLimitRemaining, body: data }));
             }
         })
@@ -504,8 +504,8 @@ async function runGetBoardsScript() {
 
     async function iterateThroughTeams(teamsArray, isErrorRetry) {
         if (DOWNLOAD_FULL_REPORT_OF_EXISTING_BOARDS) {
-            for(var i=0; i < Object.keys(teamsArray).length; i++) {
-                var apiUrl = `https://api.miro.com/v2/boards?team_id=${Object.keys(teamsArray)[i]}&limit=50`;
+            for(let i=0; i < Object.keys(teamsArray).length; i++) {
+                let apiUrl = `https://api.miro.com/v2/boards?team_id=${Object.keys(teamsArray)[i]}&limit=50`;
                 await getBoards(apiUrl, Object.keys(teamsArray)[i], i, Object.keys(teamsArray).length, getBoards_Requests_Batch_Number, isErrorRetry);
             }
 
@@ -543,25 +543,25 @@ async function runGetBoardsScript() {
     }    
 
     async function getTeams(orgId, cursor) {
-        var reqHeaders = {
+        let reqHeaders = {
             'cache-control': 'no-cache, no-store',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + API_TOKEN
         };
 
-        var reqGetOptions = {
+        let reqGetOptions = {
             method: 'GET',
             headers: reqHeaders,
             body: null
         };
 
-        var url = `https://api.miro.com/v2/orgs/${orgId}/teams` + (cursor ? `?cursor=${cursor}` : '');
+        let url = `https://api.miro.com/v2/orgs/${orgId}/teams` + (cursor ? `?cursor=${cursor}` : '');
         console.log('Getting Miro Teams - API URL --> : ' + url);
-        var listTeams = await callAPI(url, reqGetOptions);
+        let listTeams = await callAPI(url, reqGetOptions);
         
         if (listTeams.status === 200) {
-            for(var i=0; i < listTeams.body.data.length; i++) {
-                var teamId = listTeams.body.data[i].id;
+            for(let i=0; i < listTeams.body.data.length; i++) {
+                let teamId = listTeams.body.data[i].id;
                 teams[teamId] = listTeams.body.data[i];
                 teams[teamId].team_id = teamId.toString();
                 teams[teamId].team_name = teams[teamId].name.toString();
@@ -584,8 +584,8 @@ async function runGetBoardsScript() {
                 if (!fs.existsSync(directory)) {
                     fs.mkdirSync(directory);
                 }
-                var content;
-                var filePath;
+                let content;
+                let filePath;
 
                 if (Object.keys(getBoardsErrors).length > 0) {
                     content = JSON.stringify(getBoardsErrors, null, '2');
@@ -618,7 +618,7 @@ async function runGetBoardsScript() {
         else {
             console.log('====== Get Teams Error - see errors array below ======');
             console.dir(listTeams);
-            var result = {
+            let result = {
                 'team_id': teams[i],
                 'response_error': JSON.stringify(listTeams),
                 'full_error': listTeams
