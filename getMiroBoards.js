@@ -1,3 +1,12 @@
+/* 
+DISCLAIMER:
+The content of this project is subject to the Miro Developer Terms of Use: https://miro.com/legal/developer-terms-of-use/
+This script is provided only as an example to illustrate how to identify inactive users in Miro and to deactivate them automatically via API.
+The usage of this script is at the sole discretion and responsibility of the customer and is to be tested thoroughly before running it on Production environments.
+
+Script Author: Luis Colman (luis.s@miro.com) | LinkedIn: https://www.linkedin.com/in/luiscolman/
+*/
+
 let MIRO_ORG_ID = '';
 let API_TOKEN = '';
 const readline = require('readline');
