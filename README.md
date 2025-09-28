@@ -79,9 +79,11 @@ __Note__: If the person running the script is not a __Company Admin__ with the _
 
 6.3. After the script `getMiroBoards.js` has run, review the summary presented in the command line and review the reports created within the folder `miro_getboards_output_files` in the directory where the script files live.
 
-## Step 7. Revoke REST API token
+## Step 7. Revoke REST API token (Optional)
 
-The steps in this section are optional.
+The steps in this section are optional. 
+
+__*Note__: The token created for this script is a non-expiring token. Should you choose to keep the token, make sure you store it safely. In case you want to invalidate the token, follow the steps below.
 
 If you are running this script as a one-off action you can revoke the REST API token if you don't plan to use these functionalities in the future. 
 
