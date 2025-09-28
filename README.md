@@ -1,6 +1,6 @@
-# Miro Board Classification Script (Node.js)
+# Miro Get Boards Script (Node.js)
 
-This repository contains scripts to bulk update the classification label for "unclassified" boards in JavaScript (Node.js).
+This repository contains a script to get all boards via Miro REST API with Node.js/JavaScript.
 
 ## Requirements
 
