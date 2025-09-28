@@ -579,7 +579,6 @@ async function runGetBoardsScript() {
                 console.log(`Script end time: ${new Date()}`);
                 console.log('\n\n********** GETTING BOARDS COMPLETE **********');
                 console.log(`Total number of boards --> ${Object.keys(boardsObject).length}`);
-                console.log('For further details review the "miro_getboards_output_files" folder within your local directory where this script lives');
                 let directory = `miro_getboards_output_files_${convertTimestampToDate(Date.now())}`;
                 if (!fs.existsSync(directory)) {
                     fs.mkdirSync(directory);
